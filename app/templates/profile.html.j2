@@ -1,0 +1,46 @@
+{% extends 'main.html.j2' %}
+{% block main %}
+ <div
+  class="bg-image"
+  style="
+    background-image: url('https://mdbcdn.b-cdn.net/img/Photos/Others/images/76.webp');
+    height: 200vh; "
+>
+  <div class='container my-2'>
+    {% include 'AddTask.html.j2' %}
+    {% include 'CompleteTask.html.j2' %} 
+      <div class="row gy-4" >
+        {%if DataTask(AllTask)%}
+            {% for task in AllTask %}
+                    <div  class="col-sm-4">
+                      <div class="card h-100" min-height=25%>
+                        <div class="card-body">
+                          <div class="form-check d-flex flex-row justify-content-between">
+                            <form action='{{url_for("main.PostTasks",taskid=task.TaskID,str="check",status=status)}}' id='check' method='POST'>
+                                <input class="form-check-input p-1" type="checkbox" name='Check' value='{{task.Check}}' {%if task.Check %}checked{%endif%} onChange='submit();' d="flexCheckIndeterminate{{task.TaskID}}">
+                            </form>
+                              <label class="form-check-label text-center p-1" for="flexCheckIndeterminate{{task.TaskID}}">
+                                <h5 class="card-title">{{task.TaskName}}</h5>
+                              </label>
+                              
+                              <div class='p-1'><span class="badge m-1 {{DateoverDue(task.DueDate)}} float-end">{{CheckDate(task.DueDate)}}</span></div>
+                          </div>
+                          <p class="card-text">{{task.Description}}</p>
+                        </div>
+                        <div class='card-footer d-flex justify-content-between'>
+                          <a type='button' class="btn btn-sm btn-primary" data-bs-target="#EditTask{{task.TaskID}}" data-bs-toggle="modal">Edit</a>
+                          {% include 'EditTask.html.j2' %}
+                          <a type="button" data-bs-target="#DeleteTask{{task.TaskID}}" data-bs-toggle="modal" class="btn btn-sm btn-danger">Delete</a>
+                          {% include 'DeleteTask.html.j2' %}
+                        </div>
+                      </div>
+                    </div>
+            {% endfor %}
+        {%else%}
+                {% include 'Dashboard.html.j2' %}
+        {%endif%}
+     
+      </div>   
+    </div> 
+  </div>
+{% endblock %}

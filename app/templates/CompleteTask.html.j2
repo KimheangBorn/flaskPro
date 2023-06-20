@@ -1,0 +1,35 @@
+      <div class="modal fade" id="CompleteTask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Filter Tasks</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+          <form action='{{url_for("main.FilterTasks")}}' method='POST'>
+              <div class="modal-body">
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label">Filters Day</label>
+                        <select name='DateValue' class="form-select" aria-label="Default select example">
+                          <option value='' selected>All Date</option>
+                          <option value="overdue">Over Due</option>
+                          <option value="today">Today</option>
+                          <option value="notyet">Not Yet Due</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlTextarea1" class="form-label">Dateline Tasks</label>
+                        <select name='getValue' class="form-select" aria-label="Default select example">
+                          <option value='' selected>All Tasks</option>
+                          <option value="completed">Completed Tasks</option>
+                          <option value="uncompleted">Uncompleted Tasks</option>
+                        </select>
+                    </div>      
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Search</button>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>

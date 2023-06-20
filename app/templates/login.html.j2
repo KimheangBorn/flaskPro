@@ -1,0 +1,72 @@
+{% extends 'main.html.j2' %}
+{% block main %}
+<link href="/static/css/signin.css" rel="stylesheet">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-10">
+          <div class="card rounded-3 text-black">
+            <div class="row g-0">
+              <div class="col-lg-6">
+                <div class="card-body p-md-5 mx-md-4">
+                  <div class="text-center">
+                    <img src="https://git.morakot.it/uploads/-/system/appearance/logo/1/Logo_Reversed_RGB.png"
+                      style="width: 185px;" alt="logo">
+                    <h4 class="mt-1 mb-5 pb-1">Morokot Todo List</h4>
+                  </div>     
+                    <p>Please login to your account</p>
+                         {% with messages = get_flashed_messages(category_filter=["error"]) %}
+                          {% if messages %}
+                              <div class="notification text-danger">
+                                  {{ messages[0] }}
+                              </div>
+                          {% endif %}
+                          {% endwith %}
+                      <form action="" method="post" class="form" role="form">
+                        {% if 'csrf_token' in form %}
+                          {{form.csrf_token}}
+                        {% endif %}
+
+                        <!-- Email -->
+                        {{ form.Email.label(class="form-label") }}
+                        {% if form. Email.errors %}
+                        {{form.Email(class="form-control is-invalid",required=false)}}
+                        {% for error in form.Email.errors %}
+                            <div class="invalid-feedback">
+                                <span>{{error}}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                    {{form.Email(class="form-control",required=false)}}
+                    {% endif %}
+
+                    <!-- Password -->
+                        {{ form.Password.label(class="form-label") }}
+                        {% if form.Password.errors %}
+                        {{form.Password(class="form-control is-invalid",required=false,minlength=false)}}
+                        {% for error in form.Password.errors %}
+                            <div class="invalid-feedback">
+                                <span>{{error}}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                    {{form.Password(class="form-control",required=false,minlength=false)}}
+                    {% endif %}
+                        <!-- Submit -->
+                        <div class="d-grid gap-2 col-3 mx-auto">
+                          {{ form.submit(class="btn btn-primary mt-4 gradient-custom-2") }}
+                        </div>      
+                </div>
+              </div>
+              <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                  <h4 class="mb-4">Simple, Reliable, and Innovative</h4>
+                  <p class="small mb-0">We provide secure, customisable, and reliable software-as-a-service (SaaS) solutions for emerging markets..</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

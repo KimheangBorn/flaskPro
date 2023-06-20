@@ -1,0 +1,33 @@
+<div class="modal fade" id="EditTask{{task.TaskID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Task</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+        <form method='POST' action='{{url_for("main.PostTasks",taskid=task.TaskID,str="edit",status=status)}}'>
+            {% if 'csrf_token' in TForm %}
+                {{TForm.csrf_token}}
+            {% endif %}
+            <div class="modal-body">
+                    <div class="mb-3">
+                        {{TForm.TaskName.label(for="TaskName", class="col-form-label")}}
+                        {{TForm.TaskName(class="form-control",placeholder='write...',value=task.TaskName)}}
+                    </div>
+                    <div class="mb-3">
+                        {{TForm.Description.label(for="Description", class="col-form-label")}}
+                        {{TForm.Description(class="form-control",placeholder='write...',value=task.Description)}}
+                    </div>
+                    <div class="mb-3">
+                        {{TForm.DueDate.label(for="DueDate", class="col-form-label")}}
+                        {{TForm.DueDate(class="form-control",min='1990-01-01',value=ConvertDate(task.DueDate))}}
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                {{ TForm.Submit(class="btn btn-primary",value='Update') }}
+            </div>
+        </form>
+    </div>
+</div>
+</div>

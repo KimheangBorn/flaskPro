@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>{{title}}</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+
+<body>
+  <header style="background:#272361">
+    <!-- place navbar here -->
+    <nav class="navbar navbar-expand-sm navbar-dark container" >
+        <a class="navbar-brand" href="{{url_for('main.index')}}">
+          <img src="https://www.morakot.it/images/Assets/logo/main-logo.svg" class="img-thumbnail border-0 bg-transparent" alt="...">
+        </a>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+            </ul>
+            <!-- register and login -->
+            <ul class="navbar-nav">
+              <nav class="nav justify-content-center">
+                 
+                   {% if current_user.is_authenticated %}
+                   <div> 
+                    <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#AddTask" data-bs-whatever="@getbootstrap"><span class="fa fa-search"></span> Add Task</button>
+                    <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#CompleteTask" data-bs-whatever="@getbootstrap">Filter tasks</button>
+                   </div>
+                    {% endif %}
+                  {% if current_user.is_authenticated %}
+                  <div class="dropdown">
+                    <a class="nav-link active dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{current_user.FirstName}} {{current_user.LastName}}
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a href="{{ url_for('main.profile') }}" class="dropdown-item" aria-current="page">
+                           My Task
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{{ url_for('Logout') }}" class="dropdown-item" aria-current="page">
+                           Logout
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  {% endif %}
+              </nav>
+            </ul>
+        </div>
+    </nav>
+  </header>
+    
+    <main>
+          {% with messages = get_flashed_messages(category_filter=["success"]) %}
+          {% if messages %}             
+            <div class="alert alert-success alert-dismissible fade show " style='position: absolute;z-index: 1;left: 50%;right: 15%;' role="alert">
+                {{ messages[0] }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endif %}
+          {% endwith %}
+
+        {% block main %}
+        {% endblock %}
+    </main>
+  <footer>
+    <!-- place footer here -->
+  </footer>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>
