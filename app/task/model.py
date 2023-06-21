@@ -22,22 +22,24 @@ def UserTask(Status='index'):
     Task=TASK_LIST.query.filter_by(UserID=current_user.ID)
     # Tasks of all times
     AllTask=[]
+
+    
     if Status=='today':
-        AllTask=Task.filter_by(Check=False,DueDate=date.today()).order_by(TASK_LIST.TaskID.desc())
+        AllTask=Task.filter_by(Check=False,DueDate=date.today()).order_by(TASK_LIST.CreatedDate.desc())
         # OverDue
     elif Status=='overdue':
-        AllTask=Task.filter_by(Check=False).filter(TASK_LIST.DueDate<date.today()).order_by(TASK_LIST.TaskID.desc())
+        AllTask=Task.filter_by(Check=False).filter(TASK_LIST.DueDate<date.today()).order_by(TASK_LIST.CreatedDate.desc())
         # Not Yet Do
     elif Status=='notyet':
-        AllTask=Task.filter_by(Check=False).filter(TASK_LIST.DueDate>date.today()).order_by(TASK_LIST.TaskID.desc())              
+        AllTask=Task.filter_by(Check=False).filter(TASK_LIST.DueDate>date.today()).order_by(TASK_LIST.CreatedDate.desc())              
         # complete
     elif Status=='completed':
-        AllTask=Task.filter_by(Check=True).order_by(TASK_LIST.TaskID.desc())
+        AllTask=Task.filter_by(Check=True).order_by(TASK_LIST.CreatedDate.desc())
         # uncomplete
     elif Status=='uncompleted':
-        AllTask=Task.filter_by(Check=False).filter(TASK_LIST.DueDate>date.today()).order_by(TASK_LIST.TaskID.desc())  
+        AllTask=Task.filter_by(Check=False).filter(TASK_LIST.DueDate>date.today()).order_by(TASK_LIST.CreatedDate.desc())  
     elif Status=='index':
-        AllTask=Task.filter_by(Check=False).order_by(TASK_LIST.TaskID.desc())         
+        AllTask=Task.filter_by(Check=False).order_by(TASK_LIST.CreatedDate.desc())         
     return AllTask
 # Insert
 def insertTask(TaskName,Description,DueDate):
