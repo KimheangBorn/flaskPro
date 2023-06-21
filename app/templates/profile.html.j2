@@ -6,10 +6,38 @@
     background-image: url('https://mdbcdn.b-cdn.net/img/Photos/Others/images/76.webp');
     height: 200vh; "
 >
+
+ 
   <div class='container my-2'>
     {% include 'AddTask.html.j2' %}
     {% include 'CompleteTask.html.j2' %} 
+    
       <div class="row gy-4" >
+      <div class='d-end justify-content-between' >
+       
+      <form action='{{url_for("main.FilterTasks")}}' method='POST'>
+                
+      <div class="modal-body">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Filters Task</label>
+              <select name='DateValue' class="form-select" aria-label="Default select example">
+                <option value="today">Today</option>
+                <option value='' selected>All Tasks</option>
+                <option value="overdue">Over Due</option> 
+                <option value="notyet">Not Yet Due</option>
+                <option value="completed">Completed Tasks</option>
+                <option value="uncompleted">Uncompleted Tasks</option>
+              </select>
+          </div>
+      </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Search</button>
+              </div>
+              
+          </form>
+          </div>
+           
+          
         {%if DataTask(AllTask)%}
             {% for task in AllTask %}
                     <div  class="col-sm-4">
